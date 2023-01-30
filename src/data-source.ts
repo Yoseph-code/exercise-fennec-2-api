@@ -1,5 +1,6 @@
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
 import { DataSource } from "typeorm"
+import { User } from "./entitys/user.entity"
 
 const config: PostgresConnectionOptions = {
   type: "postgres",
@@ -12,6 +13,7 @@ const config: PostgresConnectionOptions = {
   logging: true,
   // logger: 'file',
   entities: [
+    User,
   ]
 }
 
