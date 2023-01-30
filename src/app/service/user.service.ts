@@ -34,6 +34,7 @@ class UserService extends Service {
         "email",
         "birthDate",
         "name",
+        "salary",
         "created_at"
       ],
       skip,
@@ -43,6 +44,22 @@ class UserService extends Service {
     const result = this.dataManipulation.paginationParse(data, total, skip, take)
 
     return result
+  }
+
+  async getUser(id: string) {
+    const findedUser = await this.repo.user.findOne({
+      where: { id },
+      select: [
+        "id",
+        "birthDate",
+        "cpf",
+        "email",
+        "salary",
+        "name"
+      ]
+    })
+
+    return findedUser
   }
 }
 

@@ -51,7 +51,20 @@ class UserController extends Controller {
     }
   }
 
-  public async getUser(req: Request, res: Response, next: NextFunction) { }
+  public async getUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params
+
+      const result = await this.userSevice.getUser(String(id))
+
+      res.json(result)
+    } catch (err: any) {
+      if (err?.message) {
+        return next(new BadRequest(err.message))
+      }
+      return next(new NotFound(err))
+    }
+  }
 
   public async editUser(req: Request, res: Response, next: NextFunction) { }
 
