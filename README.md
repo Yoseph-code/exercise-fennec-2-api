@@ -12,9 +12,5 @@ Para inicializar o banco de dados use docker, rode esse comando:
 
 Para iniciar com a aplicação, rode os seguintes comandos:
 ```shell
-  npm run build
-```
-
-```shell
-  npm run start
+  npm run dev
 ```
