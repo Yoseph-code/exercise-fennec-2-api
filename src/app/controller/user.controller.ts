@@ -9,6 +9,10 @@ class UserController extends Controller {
 
   public async newUser(req: Request, res: Response, next: NextFunction) {
     try {
+      if (String(req.body.cpf).includes(".") || String(req.body.cpf).includes("-")) {
+        return next(new BadRequest("cpf invalido, retire os caracteres"))
+      }
+
       const userSchema = z.object({
         name: z.string(),
         email: z.string().email(),
