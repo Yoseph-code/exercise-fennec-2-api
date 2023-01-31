@@ -4,11 +4,11 @@ import { User } from "./entitys/user.entity"
 
 const config: PostgresConnectionOptions = {
   type: "postgres",
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT as number | any,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_DATA,
+  host: String(process.env.DB_HOST ?? "localhost"),
+  port: String(process.env.DB_PORT ?? 5432) as number | any,
+  username: String(process.env.DB_USER ?? "fennec"),
+  password: String(process.env.DB_PASS ?? "fennec"),
+  database: String(process.env.DB_DATA ?? "fennec"),
   synchronize: true,
   logging: true,
   // logger: 'file',
