@@ -69,9 +69,7 @@ class UserService extends Service {
       throw new Error("usuario nao existe")
     }
 
-    await this.repo.user.update({
-      id
-    }, data)
+    await this.repo.user.update({ id }, data)
 
     return {
       message: `usuario ${finded.name} atualizado`
