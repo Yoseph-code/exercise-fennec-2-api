@@ -14,9 +14,7 @@ class App {
     this.middlewares()
     this.routes()
 
-    setInterval(() => {
-      this.database()
-    }, 900 * 9)
+    this.database()
   }
 
   private database() {
