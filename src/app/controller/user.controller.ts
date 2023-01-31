@@ -66,9 +66,48 @@ class UserController extends Controller {
     }
   }
 
-  public async editUser(req: Request, res: Response, next: NextFunction) { }
+  public async editUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userSchema = z.object({
+        name: z.string(),
+        email: z.string().email(),
+        cpf: z.string(),
+        birthDate: z.string(),
+        salary: z.number()
+      })
 
-  public async deleteUser(req: Request, res: Response, next: NextFunction) { }
+      const parsed = userSchema.parse(req.body)
+
+      const { message } = await this.userSevice.editUser(req.params.id, parsed)
+
+      return res.json({
+        message
+      })
+    } catch (err: any) {
+      if (Array.isArray(err.issues)) {
+        return next(new BadRequest(err.issues[0].message))
+      }
+
+      if (err?.message) {
+        return next(new BadRequest(err.message))
+      }
+      return next(new NotFound(err))
+    }
+  }
+
+  public async deleteUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params
+
+      const { message } = await this.userSevice.deleteUser(id)
+
+      return res.json({
+        message
+      })
+    } catch (err: any) {
+      return next(new NotFound(err))
+    }
+  }
 }
 
 export default new UserController()

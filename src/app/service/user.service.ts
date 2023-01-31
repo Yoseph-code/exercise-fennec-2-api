@@ -11,9 +11,9 @@ type NewUserProps = {
 
 class UserService extends Service {
   async newUser(data: NewUserProps) {
-    const findedUser = await this.repo.user.findOneBy({ email: data.email, cpf: data.cpf })
+    const finded = await this.repo.user.findOneBy({ email: data.email, cpf: data.cpf })
 
-    if (findedUser !== null) {
+    if (finded !== null) {
       throw new Error("usuario ja existe no sistema")
     }
 
@@ -60,6 +60,36 @@ class UserService extends Service {
     })
 
     return findedUser
+  }
+
+  async editUser(id: string, data: NewUserProps) {
+    const finded = await this.repo.user.findOneBy({ id })
+
+    if (finded === null) {
+      throw new Error("usuario nao existe")
+    }
+
+    await this.repo.user.update({
+      id
+    }, data)
+
+    return {
+      message: `usuario ${finded.name} atualizado`
+    }
+  }
+
+  async deleteUser(id: string) {
+    const finded = await this.repo.user.findOneBy({ id })
+
+    if (finded === null) {
+      throw new Error("usuario nao existe")
+    }
+
+    await this.repo.user.delete({ id })
+
+    return {
+      message: `usuario ${finded.name} deletado`
+    }
   }
 }
 
